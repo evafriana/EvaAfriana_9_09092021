@@ -24,6 +24,18 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono);
       expect(dates).toEqual(datesSorted);
     });
+    test("Then bill icon in vertical layout should be highlighted", () => {
+      const html = BillsUI({ data: [], loading: true });
+      document.body.innerHTML = html;
+      const loadingId = document.getElementById("loading");
+      expect(loadingId).toBeTruthy();
+    });
+    test("Then bill icon in vertical layout should be highlighted", () => {
+      const html = BillsUI({ data: [], error: true });
+      document.body.innerHTML = html;
+      let errorId = document.querySelectorAll("[data-test-id=error-message]");
+      expect(errorId).toBeTruthy();
+    });
 
     describe("And I click on new bill button", () => {
       test("then should navigate to new bills page"),
