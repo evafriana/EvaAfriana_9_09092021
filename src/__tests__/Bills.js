@@ -1,11 +1,11 @@
 import { screen } from "@testing-library/dom";
 import BillsUI from "../views/BillsUI.js";
 import { bills } from "../fixtures/bills.js";
-// import VerticalLayout from "../views/VerticalLayout";
+import VerticalLayout from "../views/VerticalLayout";
 import Bills from "../containers/Bills.js";
 import userEvent from "@testing-library/user-event";
 import { ROUTES_PATH } from "../constants/routes.js";
-// import { localStorageMock } from "../__mocks__/localStorage.js";
+import { action } from "../views/Actions";
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
@@ -46,14 +46,14 @@ describe("Given I am connected as an employee", () => {
         const html = BillsUI({ data: [] });
         document.body.innerHTML = html;
 
-        const handleNewBill = new Bills({
+        const newBills = new Bills({
           document,
           onNavigate: () => ROUTES_PATH["NewBill"],
           firestore: null,
           localStorage: null,
         });
 
-        const clickNewBill = jest.fn(handleNewBill.handleClickNewBill);
+        const clickNewBill = jest.fn(newBills.handleClickNewBill);
         const btnNewBill = screen.getByTestId("btn-new-bill");
         btnNewBill.addEventListener("click", clickNewBill);
         userEvent.click(btnNewBill);
@@ -62,8 +62,8 @@ describe("Given I am connected as an employee", () => {
     });
 
     // test handleClickIconEye
-    describe("And I click on first eye icon", () => {
-      test("A modal should open", () => {
+    describe("When I click on first eye icon", () => {
+      test("Then modal should open", () => {
         const html = BillsUI({ data: bills });
         document.body.innerHTML = html;
 
@@ -71,20 +71,32 @@ describe("Given I am connected as an employee", () => {
           document.body.innerHTML = ROUTES({ pathname });
         };
 
-        const handleNewBill = new Bills({
+        const newBills = new Bills({
           document,
           onNavigate,
           firestore: null,
-          localStorage: null,
+          bills,
+          localStorage,
         });
 
-        const handleClickIconEye = jest.fn(handleNewBill.handleClickIconEye);
-        const iconEye = screen.getAllByTestId("icon-eye");
-        iconEye.forEach((eye) => {
-          eye.addEventListener("click", handleClickIconEye);
-          userEvent.click(eye);
-          expect(handleClickIconEye).toHaveBeenCalled();
+        const eyeIcon = document.querySelectorAll(
+          `div[data-testid="icon-eye"]`
+        );
+
+        const clickIconEye = jest.fn((icon) =>
+          newBills.handleClickIconEye(icon)
+        );
+        $.fn.modal = jest.fn();
+        eyeIcon.forEach((icon) => {
+          icon.addEventListener("click", () => {
+            clickIconEye(icon);
+          });
         });
+        userEvent.click(eyeIcon[0]);
+        expect(clickIconEye).toHaveBeenCalled();
+        expect($.fn.modal).toHaveBeenCalled();
+        // const modal = document.getElementById("modaleFile");
+        // expect(modal).toBeTruthy();
       });
     });
   });
