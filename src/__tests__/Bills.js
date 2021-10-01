@@ -42,7 +42,7 @@ describe("Given I am connected as an employee", () => {
 
     // test handleClickNewBill
     describe("And I click on new bill button", () => {
-      test("then should navigate to new bills page", () => {
+      test("Then should navigate to new bills page", () => {
         const html = BillsUI({ data: [] });
         document.body.innerHTML = html;
 
