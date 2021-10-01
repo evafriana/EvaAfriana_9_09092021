@@ -5,7 +5,7 @@ import VerticalLayout from "../views/VerticalLayout";
 import Bills from "../containers/Bills.js";
 import userEvent from "@testing-library/user-event";
 import { ROUTES_PATH } from "../constants/routes.js";
-import { action } from "../views/Actions";
+import firebase from "../__mocks__/firebase.js";
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
@@ -42,7 +42,7 @@ describe("Given I am connected as an employee", () => {
 
     // test handleClickNewBill
     describe("And I click on new bill button", () => {
-      test("Then should navigate to new bills page", () => {
+      test("then should navigate to new bills page", () => {
         const html = BillsUI({ data: [] });
         document.body.innerHTML = html;
 
@@ -79,24 +79,16 @@ describe("Given I am connected as an employee", () => {
           localStorage,
         });
 
-        const eyeIcon = document.querySelectorAll(
-          `div[data-testid="icon-eye"]`
-        );
+        const eyeIcon = screen.getAllByTestId("icon-eye")[0];
 
-        const clickIconEye = jest.fn((icon) =>
-          newBills.handleClickIconEye(icon)
+        const clickIconEye = jest.fn(() =>
+          newBills.handleClickIconEye(eyeIcon)
         );
         $.fn.modal = jest.fn();
-        eyeIcon.forEach((icon) => {
-          icon.addEventListener("click", () => {
-            clickIconEye(icon);
-          });
-        });
-        userEvent.click(eyeIcon[0]);
+        eyeIcon.addEventListener("click", clickIconEye);
+        userEvent.click(eyeIcon);
         expect(clickIconEye).toHaveBeenCalled();
         expect($.fn.modal).toHaveBeenCalled();
-        // const modal = document.getElementById("modaleFile");
-        // expect(modal).toBeTruthy();
       });
     });
   });
@@ -104,7 +96,7 @@ describe("Given I am connected as an employee", () => {
 
 // test d'intégration GET
 describe("Given I am a user connected as Employee", () => {
-  describe("When I navigate to Bills Page", () => {
+  describe("When I navigate to Bills", () => {
     test("fetches bills from mock API GET", async () => {
       const getSpy = jest.spyOn(firebase, "get");
       const bills = await firebase.get();
