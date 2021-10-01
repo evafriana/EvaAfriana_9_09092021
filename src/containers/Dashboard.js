@@ -88,8 +88,9 @@ export default class {
     $("#modaleFileAdmin1")
       .find(".modal-body")
       .html(
-        `<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`
+        `<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} onerror="this.onerror=null;this.src='https://aeroclub-issoire.fr/wp-content/uploads/2020/05/image-not-found-300x225.jpg';" /></div>`
       );
+
     if (typeof $("#modaleFileAdmin1").modal === "function")
       $("#modaleFileAdmin1").modal("show");
   };
