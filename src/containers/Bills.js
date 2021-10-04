@@ -30,7 +30,9 @@ export default class {
     $("#modaleFile")
       .find(".modal-body")
       .html(
-        `<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`
+
+        `<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} onerror="this.onerror=null;this.src='https://aeroclub-issoire.fr/wp-content/uploads/2020/05/image-not-found-300x225.jpg';" /></div>`
+
       );
     $("#modaleFile").modal("show");
   };
@@ -50,7 +52,9 @@ export default class {
               try {
                 return {
                   ...doc.data(),
+
                   // date: formatDate(doc.data().date),
+
                   status: formatStatus(doc.data().status),
                 };
               } catch (e) {
@@ -59,7 +63,9 @@ export default class {
                 console.log(e, "for", doc.data());
                 return {
                   ...doc.data(),
+
                   // date: doc.data().date,
+
                   status: formatStatus(doc.data().status),
                 };
               }
