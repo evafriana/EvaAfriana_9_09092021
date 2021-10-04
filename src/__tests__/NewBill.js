@@ -11,7 +11,7 @@ import BillsUI from "../views/BillsUI.js";
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
     // test handleChangeFile
-    test("Then I can chose one file to upload", async () => {
+    test("Then I can chose one file to upload", () => {
       const html = NewBillUI();
       document.body.innerHTML = html;
 
@@ -28,6 +28,7 @@ describe("Given I am connected as an employee", () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
+
       // const fire = {
       //   storage: jest.fn(),
       // };
@@ -39,7 +40,7 @@ describe("Given I am connected as an employee", () => {
       const newBillContainer = new NewBill({
         document,
         onNavigate,
-        firestore,
+        // firestore: fire,
         localStorage: window.localStorage,
       });
       const handleChangeFile = jest.fn((e) =>
