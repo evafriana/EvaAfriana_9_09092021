@@ -30,14 +30,13 @@ export default class {
     $("#modaleFile")
       .find(".modal-body")
       .html(
-
         `<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} onerror="this.onerror=null;this.src='https://aeroclub-issoire.fr/wp-content/uploads/2020/05/image-not-found-300x225.jpg';" /></div>`
-
       );
     $("#modaleFile").modal("show");
   };
 
   // not need to cover this function by tests
+  /* istanbul ignore next */
   getBills = () => {
     const userEmail = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).email
