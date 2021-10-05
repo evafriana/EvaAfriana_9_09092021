@@ -63,5 +63,36 @@ describe("Given I am connected as an employee", () => {
         expect(clickNewBill).toHaveBeenCalled();
       });
     });
+
+    // test handleClickIconEye
+    describe("When I click on first eye icon", () => {
+      test("Then modal should open", () => {
+        const html = BillsUI({ data: bills });
+        document.body.innerHTML = html;
+
+        const onNavigate = (pathname) => {
+          document.body.innerHTML = ROUTES({ pathname });
+        };
+
+        const newBills = new Bills({
+          document,
+          onNavigate,
+          firestore: null,
+          bills,
+          localStorage,
+        });
+
+        const eyeIcon = screen.getAllByTestId("icon-eye")[0];
+
+        const clickIconEye = jest.fn(() =>
+          newBills.handleClickIconEye(eyeIcon)
+        );
+        $.fn.modal = jest.fn();
+        eyeIcon.addEventListener("click", clickIconEye);
+        userEvent.click(eyeIcon);
+        expect(clickIconEye).toHaveBeenCalled();
+        expect($.fn.modal).toHaveBeenCalled();
+      });
+    });
   });
 });
