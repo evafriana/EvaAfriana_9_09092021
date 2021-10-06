@@ -24,6 +24,7 @@ export default class NewBill {
     let isValideExtension = ["jpg", "jpeg", "png"].includes(
       fileName.split(".").pop()
     );
+    /* istanbul ignore next */
     if (isValideExtension) {
       this.firestore.storage
         .ref(`justificatifs/${fileName}`)

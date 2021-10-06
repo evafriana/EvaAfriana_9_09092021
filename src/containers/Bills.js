@@ -10,9 +10,11 @@ export default class {
     const buttonNewBill = document.querySelector(
       `button[data-testid="btn-new-bill"]`
     );
+    /* istanbul ignore next */
     if (buttonNewBill)
       buttonNewBill.addEventListener("click", this.handleClickNewBill);
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`);
+    /* istanbul ignore next */
     if (iconEye)
       iconEye.forEach((icon) => {
         icon.addEventListener("click", (e) => this.handleClickIconEye(icon));

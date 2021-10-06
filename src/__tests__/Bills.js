@@ -16,6 +16,7 @@ describe("Given I am connected as an employee", () => {
       // const icon = screen.getByTestId("icon-window");
       // expect(icon).toHaveClass("active-icon");
     });
+
     test("Then bills should be ordered from earliest to latest", () => {
       const html = BillsUI({ data: bills });
       document.body.innerHTML = html;
@@ -30,13 +31,13 @@ describe("Given I am connected as an employee", () => {
     });
 
     // BillsUI : increase the coverage rate to 100%
-    test("Then bill icon in vertical layout should be highlighted", () => {
+    test("Then Loading page should appears", () => {
       const html = BillsUI({ data: [], loading: true });
       document.body.innerHTML = html;
       const loadingId = document.getElementById("loading");
       expect(loadingId).toBeTruthy();
     });
-    test("Then bill icon in vertical layout should be highlighted", () => {
+    test("Then Error page should appears", () => {
       const html = BillsUI({ data: [], error: true });
       document.body.innerHTML = html;
       let errorId = document.querySelectorAll("[data-test-id=error-message]");

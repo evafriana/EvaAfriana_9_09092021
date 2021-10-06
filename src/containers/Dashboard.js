@@ -11,6 +11,7 @@ export const filteredBills = (data, status) => {
         let selectCondition;
 
         // in jest environment
+        /* istanbul ignore next */
         if (typeof jest !== "undefined") {
           selectCondition = bill.status === status;
         } else {
@@ -90,7 +91,7 @@ export default class {
       .html(
         `<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} onerror="this.onerror=null;this.src='https://aeroclub-issoire.fr/wp-content/uploads/2020/05/image-not-found-300x225.jpg';" /></div>`
       );
-
+    /* istanbul ignore next */
     if (typeof $("#modaleFileAdmin1").modal === "function")
       $("#modaleFileAdmin1").modal("show");
   };
@@ -168,6 +169,7 @@ export default class {
   }
 
   // not need to cover this function by tests
+  /* istanbul ignore next */
   getBillsAllUsers = () => {
     if (this.firestore) {
       return this.firestore
@@ -187,6 +189,7 @@ export default class {
   };
 
   // not need to cover this function by tests
+  /* istanbul ignore next */
   updateBill = (bill) => {
     if (this.firestore) {
       return this.firestore
