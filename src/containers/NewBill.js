@@ -24,6 +24,7 @@ export default class NewBill {
     let isValideExtension = ["jpg", "jpeg", "png"].includes(
       fileName.split(".").pop()
     );
+    // prevent typing of a document that has an extension other than jpg, jpeg or png
     /* istanbul ignore next */
     if (isValideExtension) {
       this.firestore.storage
